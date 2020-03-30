@@ -31,7 +31,22 @@ void GenStack<E>::push(const E& e)
   }
   else
   {
-    //Allocate more space
+    m_capacity += 10;
+    E* tempArray = new E[m_capacity];
+
+    for (int i = 0; i < this->size(); ++i)
+    {
+      tempArray[i] = m_array[i];
+    }
+
+    for (int i = 0; i < this->size(); ++i)
+    {
+      cout << tempArray[i] << endl;
+    }
+    m_array = tempArray;
+    this->m_array[++m_top] = e;
+    tempArray = NULL;
+    delete tempArray;
   }
 }
 

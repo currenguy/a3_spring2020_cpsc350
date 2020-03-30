@@ -10,7 +10,7 @@ class StackEmpty : public exception
   public:
     virtual const char* what() const throw()
     {
-      return "ERROR: Trying to access an element from empty stack.";
+      return "ERROR: Trying to access top element from empty stack.";
     }
     //StackEmpty(const string& err) : g{}
 };
