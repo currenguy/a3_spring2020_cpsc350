@@ -23,7 +23,7 @@ class GenStack
     bool isEmpty() const;
     bool isFull() const;
     const E& top() const throw(StackEmpty); //Returns the top element
-    void resize(); //Resize the array?
+    void print(); //Prints the stack information
 
   private:
     int m_capacity; //Max size of the stack

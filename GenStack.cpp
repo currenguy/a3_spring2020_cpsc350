@@ -33,26 +33,23 @@ void GenStack<E>::push(const E& e)
   {
     m_capacity += 10;
     E* tempArray = new E[m_capacity];
-
     for (int i = 0; i < this->size(); ++i)
     {
       tempArray[i] = m_array[i];
     }
 
-    for (int i = 0; i < this->size(); ++i)
-    {
-      cout << tempArray[i] << endl;
-    }
     m_array = tempArray;
     this->m_array[++m_top] = e;
     tempArray = NULL;
     delete tempArray;
+
   }
 }
 
 template <typename E>
 void GenStack<E>::pop() throw(StackEmpty)
 {
+
   if (!this->isEmpty())
   {
     --m_top;
@@ -98,4 +95,25 @@ const E& GenStack<E>::top() const throw(StackEmpty)
   {
     throw StackEmpty();
   }
+}
+
+template <typename E>
+void GenStack<E>::print()
+{
+  cout << endl << "PRINTED STACK (Capacity: " << this->m_capacity;
+  cout << ", Number of elements: " << this->size() << ")" << endl << endl;
+
+  cout << "\tTOP: [ ";
+  for (int i = this->m_top; i >= 0; --i)
+  {
+    if (i == 0)
+    {
+      cout << m_array[i];
+    }
+    else
+    {
+      cout << m_array[i] << ", ";
+    }
+  }
+  cout << " ] :BOTTOM" << endl << endl;
 }
