@@ -81,6 +81,15 @@ void SyntaxChecker::readFile(string file)
                   m_delimiters->pop();
                 }
               }
+              else if (m_delimiters->isEmpty())
+              {
+                if (line[i] == ')' || line[i] == ']' || line[i] == '}')
+                {
+                  cout << "\n\n\n\n\nERROR Line " << lineNumber;
+                  cout << ": Unexpected \"" << line[i] << "\"\n\n" << endl;
+                  foundError = true;
+                }
+              }
             }
           }
         }

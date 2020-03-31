@@ -9,7 +9,7 @@ void WorkoutA::startBeginnerWorkout()
   }
   for (int i = 0; i < 16; ++i)
   {
-    for (int j = 59; j > -1; --j  ////MISSING PARENTHESIS END
+    for (int j = 59; j > -1; --j)  ////MISSING PARENTHESIS END
     {
       //Timer
       cout << "\n\n\n\n\n\n\n\n\n" << this->getNumber(j) << endl;
