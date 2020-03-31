@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "GenStack.h"
+#include "GenStack.cpp"
 using namespace std;
 
 class SyntaxChecker

@@ -117,3 +117,9 @@ void GenStack<E>::print()
   }
   cout << " ] :BOTTOM" << endl << endl;
 }
+
+template <typename E>
+void GenStack<E>::clear()
+{
+  this->m_top = -1;
+}
