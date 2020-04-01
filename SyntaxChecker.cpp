@@ -3,24 +3,28 @@
 SyntaxChecker::SyntaxChecker()
 {
   m_delimiters = new GenStack<char>();
+  m_lines = new GenStack<int>();
 }
 
 SyntaxChecker::~SyntaxChecker()
 {
   delete m_delimiters;
+  delete m_lines;
 }
 
-void SyntaxChecker::readFile(string file)
+bool SyntaxChecker::readFile(string file)
 {
   ifstream inFS;
   string input = "y";
   string line = "";
   int lineNumber = 0;
   bool foundError = false;
+  char lastChar = '-';
 
   while (tolower(input[0]) == 'y')
   {
     m_delimiters->clear();
+    m_lines->clear();
     lineNumber = 0;
     inFS.open(file);
     foundError = false;
@@ -28,97 +32,110 @@ void SyntaxChecker::readFile(string file)
 
     if (inFS.is_open())
     {
-      while (!inFS.eof() && foundError == false)
+      while (!inFS.eof())
       {
         lineNumber++;
+        cout << lineNumber << endl;
         getline(inFS, line);
         if (!inFS.fail())
         {
           for (int i = 0; i < line.size(); ++i)
           {
+
+
+
+            if (i == line.size() - 1 && !m_delimiters->isEmpty())
+            {
+              if (m_delimiters->top() == '(' && !(line[i] == ')'))
+              {
+                cout << "\n\n\n\n\nERROR: Missing a ) on Line " << lineNumber << endl << endl << endl;
+                return false;
+              }
+              else if (m_delimiters->top() == '[' && !(line[i] == ']'))
+              {
+                cout << "\n\n\n\n\nERROR: Missing a ] on Line " << lineNumber << endl << endl << endl;
+                return false;
+              }
+            }
+
+
+
+
             if (line[i] == '(' || line[i] == '[' || line[i] == '{')
             {
               m_delimiters->push(line[i]);
+              m_lines->push(lineNumber);
+              m_delimiters->print();
+              // m_lines->print();
             }
-            else
+
+            else if (line[i] == ')' || line[i] == ']' || line[i] == '}')
             {
-              if (!m_delimiters->isEmpty() && m_delimiters->top() == '(')
+              if (m_delimiters->isEmpty())
               {
-                if (line[i] != ')' && (line[i] == ']' || line[i] == '}'))
-                {
-                  cout << "\n\n\n\n\nERROR Line " << lineNumber;
-                  cout << ": Expecting a " << "\")\"\n\n" << endl;
-                  foundError = true;
-                }
-                else if (line[i] == ')')
-                {
-                  m_delimiters->pop();
-                }
+                cout << "\n\n\n\n\nERROR: Unexpected " << line[i] << endl;
+                cout << "on Line " << lineNumber << endl << endl << endl;
+                return false;
               }
-              else if (!m_delimiters->isEmpty() && m_delimiters->top() == '[')
+              else
               {
-                if (line[i] != ']' && (line[i] == ')' || line[i] == '}'))
+                if (m_delimiters->top() == '(' && line[i] != ')')
                 {
-                  cout << "\n\n\n\n\nERROR Line " << lineNumber;
-                  cout << ": Expecting a " << "\"]\"\n\n" << endl;
-                  foundError = true;
+                  cout << "\n\n\n\n\nERROR: Expecting a ) on Line " << lineNumber << endl;
+                  cout << "to match ( on Line " << m_lines->top() << endl;
+                  cout << "Found a " << line[i] << " instead." << endl << endl << endl;
+                  return false;
                 }
-                else if (line[i] == ']')
+                else if (m_delimiters->top() == '[' && line[i] != ']')
                 {
-                  m_delimiters->pop();
+                  cout << "\n\n\n\n\nERROR: Expecting a ] on Line " << lineNumber << endl;
+                  cout << "to match ( on Line " << m_lines->top() << endl;
+                  cout << "Found a " << line[i] << " instead." << endl << endl << endl;
+                  return false;
                 }
+                else if (m_delimiters->top() == '{' && line[i] != '}')
+                {
+                  cout << "\n\n\n\n\nERROR: Expecting a } on Line " << lineNumber << endl;
+                  cout << "to match { on Line " << m_lines->top() << endl;
+                  cout << "Found a " << line[i] << " instead." << endl << endl << endl;
+                  return false;
+                }
+                m_delimiters->pop();
+                m_lines->pop();
               }
-              else if (!m_delimiters->isEmpty() && m_delimiters->top() == '{')
-              {
-                if (line[i] != '}' && (line[i] == ')' || line[i] == ']'))
-                {
-                  cout << "\n\n\n\n\nERROR Line " << lineNumber;
-                  cout << ": Expecting a " << "\"}\"\n\n" << endl;
-                  foundError = true;
-                }
-                else if (line[i] == '}')
-                {
-                  m_delimiters->pop();
-                }
-              }
-              else if (m_delimiters->isEmpty())
-              {
-                if (line[i] == ')' || line[i] == ']' || line[i] == '}')
-                {
-                  cout << "\n\n\n\n\nERROR Line " << lineNumber;
-                  cout << ": Unexpected \"" << line[i] << "\"\n\n" << endl;
-                  foundError = true;
-                }
-              }
+              m_delimiters->print();
+              // m_lines->print();
             }
+            lastChar = line[i];
           }
         }
       }
-      if (foundError == false && !m_delimiters->isEmpty())
+
+      if (m_delimiters->isEmpty())
       {
-        foundError = true;
-        cout << "\n\n\n\n\nERROR Line " << lineNumber;
+        cout << "\n\n\n\n\nNo errors found" << endl << endl << endl;
+      }
+      else
+      {
         if (m_delimiters->top() == '(')
         {
-          cout << ": Expecting a " << "\")\"\n\n" << endl;
+          cout << "\n\n\n\n\nERROR: Expecting a ) on Line "  << lineNumber << endl;
+          cout << "to match ( on Line " << m_lines->top() << endl;
+          cout << "Found a " << lastChar << " instead." << endl << endl << endl;
         }
         else if (m_delimiters->top() == '[')
         {
-          cout << ": Expecting a " << "\"]\"\n\n" << endl;
+          cout << "\n\n\n\n\nERROR: Expecting a ] on Line "  << lineNumber << endl;
+          cout << "to match [ on Line " << m_lines->top() << endl;
+          cout << "Found a " << lastChar << " instead." << endl << endl << endl;
         }
         else if (m_delimiters->top() == '{')
         {
-          cout << ": Expecting a " << "\"}\"\n\n" << endl;
+          cout << "\n\n\n\n\nERROR: Expecting a } on Line "  << lineNumber << endl;
+          cout << "to match { on Line " << m_lines->top() << endl;
+          cout << "Found a " << lastChar << " instead." << endl << endl << endl;
         }
       }
-
-      // cout << endl;
-      // cout << foundError << endl;
-      if (foundError == false)
-      {
-        cout << "\n\n\n\n\nNo errors found" << endl;
-      }
-      //m_delimiters->print();
     }
     else
     {

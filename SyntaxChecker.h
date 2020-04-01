@@ -12,9 +12,10 @@ class SyntaxChecker
   public:
     SyntaxChecker();
     ~SyntaxChecker();
-    void readFile(string file);
+    bool readFile(string file);
   private:
-    GenStack<char>* m_delimiters;
+    GenStack<char>* m_delimiters; //Stores opening delimiters
+    GenStack<int>* m_lines; //Stores the lines of opening delimiters
 };
 
 #endif
