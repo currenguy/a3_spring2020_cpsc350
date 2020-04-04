@@ -10,7 +10,6 @@
 ## 2. SOURCE FILES
 - README.md
 - GenStack.h
-- GenStack.cpp
 - StackEmpty.h
 - SyntaxChecker.h
 - SyntaxChecker.cpp
