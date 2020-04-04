@@ -35,7 +35,7 @@
   - If a closing delimiter appears first, the checker will provide the line of
   the unexpected opening delimiter.
   - If the checker reaches the end of the file with unbalanced delimiters,
-  it will state the last line needs to match the last stored opening delimiter.
+  it will state that the end of the file needs to match the last stored opening delimiter.
 
 ## 4. REFERENCES
 - Data Structures & Algorithms
