@@ -22,11 +22,11 @@
 ## 3. DESCRIPTION
 - This is a Syntax Checker
 - How to use:
-  1. Open terminal
-  2. '''cd''' into the directory containing source files
-  3. Type '''make all''' into your command line
-  4. Type '''./assignment3.out filename''' into your command line
-  5. Follow the menu prompts
+  - Open terminal
+  - `cd` into the directory containing source files
+  - Type `make all` into your command line
+  - Type `./assignment3.out filename` into your command line
+  - Follow the menu prompts
 - Important Notes:
   - The syntax checker will store opening delimiters, then look for the first
   closing delimiter.
