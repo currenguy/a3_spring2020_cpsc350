@@ -19,19 +19,20 @@
 - Makefile
 - test.txt (optional, sample input file)
 
-
 ## 3. DESCRIPTION
 - This is a Syntax Checker
 - How to use:
   1. Open terminal
-  2. Change into the directory containing source files
-  3. Type "make all" into your command line
-  4. Type "./assignment3.out" into your command line
+  2. '''cd''' into the directory containing source files
+  3. Type '''make all''' into your command line
+  4. Type '''./assignment3.out filename''' into your command line
   5. Follow the menu prompts
 - Important Notes:
-  - The syntax checker will store opening delimiters, then look for the first closing delimiter.
-  - If the next closing delimiter doesn't match the last stored opening delimiter,
-  then the checker will provide the line of the expected matching closing delimiter.
+  - The syntax checker will store opening delimiters, then look for the first
+  closing delimiter.
+  - If the next closing delimiter doesn't match the last stored opening
+  delimiter, then the checker will provide the line of the expected matching
+  closing delimiter and the line of the specified opening delimiter.
 
 ## 4. REFERENCES
 - Data Structures & Algorithms
@@ -40,3 +41,4 @@
 - https://www.codeproject.com/Articles/48575/How-to-Define-a-Template-Class-in-a-h-File-and-Imp
 - http://www.cplusplus.com/forum/general/57229/
 - https://www.geeksforgeeks.org/getline-string-c/
+- http://www.cplusplus.com/reference/exception/exception/what/

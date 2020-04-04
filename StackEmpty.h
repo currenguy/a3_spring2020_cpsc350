@@ -5,6 +5,8 @@
 #include <exception>
 using namespace std;
 
+//Exception for trying to access an element from an empty stack
+
 class StackEmpty : public exception
 {
   public:
@@ -12,7 +14,6 @@ class StackEmpty : public exception
     {
       return "ERROR: Trying to access top element from empty stack.";
     }
-    //StackEmpty(const string& err) : g{}
 };
 
 #endif

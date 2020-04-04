@@ -4,18 +4,27 @@
 #include <iostream>
 #include <fstream>
 #include "GenStack.h"
-#include "GenStack.cpp"
 using namespace std;
+
+//This is the header for the Syntax Checker
 
 class SyntaxChecker
 {
   public:
+    //Default constructor
     SyntaxChecker();
+    //Destructor
     ~SyntaxChecker();
+
+    //Reads in a file and checks delimiter balance
+    //Returns true if all (), [], and {} are balanced
     bool readFile(string file);
+
   private:
-    GenStack<char>* m_delimiters; //Stores opening delimiters
-    GenStack<int>* m_lines; //Stores the lines of opening delimiters
+    //Stores opening delimiters
+    GenStack<char>* m_delimiters;
+    //Stores the line numbers of opening delimiters
+    GenStack<int>* m_lines;
 };
 
 #endif

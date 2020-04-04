@@ -1,33 +1,8 @@
-#include <iostream>
-#include <thread>
-using namespace std;
-
-void startBeginnerWorkout()
-{
-  //std::this_thread::sleep_for(2s);
-  for (int i = 3; i > 0; --i)
+({
   {
-    cout << i << endl;
-    std::this_thread::sleep_for(1s);
-  }
-  for (int i = 0; i < 16; ++i)
-  {
-    for (int j = 59; j > -1; -- i)
+    (for x in 100)
     {
-      //Timer
-      cout << j << endl;
 
-      //Exercise Name
-      if (i < 15)
-      {
-        cout << "\t-> Up Next: " << i << endl;
-      }
-      else
-      {
-
-        cout << "\tLast Workout!" << endl;
-      }
-      std::this_thread::sleep_for(1s);
     }
   }
 }
